@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NumberQuestions } from "./components/number-questions";
 import { answerList, Option } from "../db/data";
 import { AskCard } from "./components/ask-card";
 import { Pagination } from "./components/pagination";
 import { TimeAvailable } from "./components/time-available";
-import { useAnswer } from "../hooks/use-answer";
 
 export default function PreguntasPage() {
   const stateSelectedPosition = useState<number | undefined>(0);
@@ -18,11 +17,6 @@ export default function PreguntasPage() {
     (_, index) => index === selectedPosition,
   );
 
-  const { onFilter, questions } = useAnswer();
-
-  useEffect(() => {
-    onFilter(1);
-  }, []);
   return (
     <section className="flex gap-4 w-[85%] pt-5 p-4 mx-auto  ">
       <NumberQuestions
