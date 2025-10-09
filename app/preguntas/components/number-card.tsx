@@ -1,7 +1,7 @@
-import { Answer } from "@/app/db/data";
+import { IQuestion } from "@/app/model/question";
 
 interface NumberCardProps {
-  answer: Answer;
+  answer: IQuestion;
   index: number;
   stateSelectedPosition: [
     number | undefined,

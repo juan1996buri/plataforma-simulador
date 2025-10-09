@@ -1,12 +1,11 @@
+import { IAnswer } from "@/app/model/answer";
 import { RadioButton } from "primereact/radiobutton";
-import { Button } from "primereact/button";
-import { Answer, Option } from "@/app/db/data";
 
 interface AskCardProps {
-  option: Option;
+  option: IAnswer;
   stateSelectedOption: [
-    Option | undefined,
-    React.Dispatch<React.SetStateAction<Option | undefined>>,
+    IAnswer | undefined,
+    React.Dispatch<React.SetStateAction<IAnswer | undefined>>,
   ];
 }
 export const AskCard = ({ option, stateSelectedOption }: AskCardProps) => {
@@ -23,15 +22,15 @@ export const AskCard = ({ option, stateSelectedOption }: AskCardProps) => {
       } `}
     >
       <RadioButton
-        inputId={option.description}
-        name={option.description}
+        inputId={option.text}
+        name={option.text}
         value={option}
         checked={selectedOption?.id === option.id}
         onChange={(e) => {
           setSelectedOption(e.value);
         }}
       />
-      <label htmlFor={option.description}>{option.description}</label>
+      <label htmlFor={option.text}>{option.text}</label>
     </button>
   );
 };

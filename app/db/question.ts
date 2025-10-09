@@ -7,8 +7,14 @@ export async function findAllQuestions(
     await prisma.$connect(); // intenta conectar
     console.log("✅ Conexión exitosa a la base de datos");
 
-    const data = await prisma.question.findMany();
-    console.log("question.findMany==============================", data);
+    const data = await prisma.question.findMany({
+      include: { answers: true },
+      where: {
+        category: {
+          id: categoryId,
+        },
+      },
+    });
 
     return data;
   } catch (error) {
