@@ -1,15 +1,15 @@
-import { Answer } from "@/app/db/data";
+import { IQuestion } from "@/app/model/question";
 
 interface PaginationProps {
   stateSelectedPosition: [
     number | undefined,
     React.Dispatch<React.SetStateAction<number | undefined>>,
   ];
-  answerList: Answer[];
+  questions: IQuestion[];
 }
 export const Pagination = ({
   stateSelectedPosition,
-  answerList,
+  questions,
 }: PaginationProps) => {
   const [selectedPosition, setSelectedPosition] = stateSelectedPosition;
 
@@ -25,7 +25,7 @@ export const Pagination = ({
       <button
         type="button"
         onClick={() => setSelectedPosition(selectedPosition! + 1)}
-        disabled={answerList.length === selectedPosition}
+        disabled={questions.length - 1 === selectedPosition}
       >
         Siguiente
       </button>

@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { NumberQuestions } from "./number-questions";
 import { TimeAvailable } from "./time-available";
 import { Pagination } from "./pagination";
-import { AskCard } from "./ask-card";
 import { IQuestion } from "@/app/model/question";
 import { IAnswer } from "@/app/model/answer";
+import { AnswersList } from "./answers-list/answers-list";
+import { QuestionsNumber } from "./questions-number/questions-number";
 
 interface QuestionsContentProps {
   questions: IQuestion[];
@@ -22,8 +22,8 @@ export const QuestionsContent = ({ questions }: QuestionsContentProps) => {
   );
 
   return (
-    <section className="flex gap-4 w-[85%] pt-5 p-4 mx-auto  ">
-      <NumberQuestions
+    <section className="flex gap-4 w-[85%] pt-5 p-4 mx-auto">
+      <QuestionsNumber
         stateSelectedPosition={stateSelectedPosition}
         questions={questions}
       />
@@ -32,25 +32,18 @@ export const QuestionsContent = ({ questions }: QuestionsContentProps) => {
           <TimeAvailable />
           <Pagination
             stateSelectedPosition={stateSelectedPosition}
-            answerList={questions}
+            questions={questions}
           />
         </div>
         <header className="px-2 mt-4 bg-white border-gray-200 rounded-md shadow-md">
           <h1 className="p-2">{questionSelected?.text}</h1>
         </header>
 
-        <ul className="flex flex-col gap-4 mt-4 ">
-          {questionSelected?.answers.map((option, index) => {
-            return (
-              <li key={index}>
-                <AskCard
-                  option={option}
-                  stateSelectedOption={stateSelectedOption}
-                />
-              </li>
-            );
-          })}
-        </ul>
+        <AnswersList
+          questionSelected={questionSelected}
+          stateSelectedOption={stateSelectedOption}
+        />
+
         <div className="flex justify-end">
           <button type="button" className="mt-4 ">
             Finalizar

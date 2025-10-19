@@ -1,14 +1,17 @@
 import { IAnswer } from "@/app/model/answer";
 import { RadioButton } from "primereact/radiobutton";
 
-interface AskCardProps {
+interface AnswerCardProps {
   option: IAnswer;
   stateSelectedOption: [
     IAnswer | undefined,
     React.Dispatch<React.SetStateAction<IAnswer | undefined>>,
   ];
 }
-export const AskCard = ({ option, stateSelectedOption }: AskCardProps) => {
+export const AnswerCard = ({
+  option,
+  stateSelectedOption,
+}: AnswerCardProps) => {
   const [selectedOption, setSelectedOption] = stateSelectedOption;
 
   return (
