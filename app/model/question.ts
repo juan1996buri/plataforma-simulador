@@ -1,9 +1,9 @@
-import { IAnswer } from "./answer";
+import { IAnswer } from "./answer"
 
 export interface IQuestion {
-  id: number;
-  text: string | null;
+  id: number
+  text: string | null
   // mediaUrl: string | null;
-  categoryId: number | null;
-  answers: IAnswer[];
+  categoryId: number | null
+  answers: IAnswer[]
 }

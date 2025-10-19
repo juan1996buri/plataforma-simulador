@@ -1,39 +1,38 @@
-import { IAnswer } from "@/app/model/answer";
-import { RadioButton } from "primereact/radiobutton";
+import { IAnswer } from "@/app/model/answer"
+import { RadioButton } from "primereact/radiobutton"
+import { Dispatch, SetStateAction } from "react"
 
 interface AnswerCardProps {
-  option: IAnswer;
-  stateSelectedOption: [
-    IAnswer | undefined,
-    React.Dispatch<React.SetStateAction<IAnswer | undefined>>,
-  ];
+  answer: IAnswer
+  stateSelectedAnswers: [IAnswer[], Dispatch<SetStateAction<IAnswer[]>>]
+  onClick: (answer: IAnswer) => void
 }
 export const AnswerCard = ({
-  option,
-  stateSelectedOption,
+  answer,
+  stateSelectedAnswers,
+  onClick,
 }: AnswerCardProps) => {
-  const [selectedOption, setSelectedOption] = stateSelectedOption;
+  const [selectedAnswers] = stateSelectedAnswers
+
+  const selected = selectedAnswers.some((data) => data.id === answer.id)
 
   return (
     <button
       type="button"
-      onClick={() => setSelectedOption(option)} // click en cualquier parte
+      onClick={() => onClick(answer)}
       className={`flex gap-x-2 p-2 rounded-md w-full  ${
-        option.id === selectedOption?.id
+        selected
           ? "bg-green-300 border-green-400 shadow-md"
           : "bg-white border-gray-200 shadow-md"
       } `}
     >
       <RadioButton
-        inputId={option.text}
-        name={option.text}
-        value={option}
-        checked={selectedOption?.id === option.id}
-        onChange={(e) => {
-          setSelectedOption(e.value);
-        }}
+        inputId={answer.text}
+        name={answer.text}
+        value={answer}
+        checked={selected}
       />
-      <label htmlFor={option.text}>{option.text}</label>
+      <label htmlFor={answer.text}>{answer.text}</label>
     </button>
-  );
-};
+  )
+}

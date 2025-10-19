@@ -1,31 +1,34 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { TimeAvailable } from "./time-available";
-import { Pagination } from "./pagination";
-import { IQuestion } from "@/app/model/question";
-import { IAnswer } from "@/app/model/answer";
-import { AnswersList } from "./answers-list/answers-list";
-import { QuestionsNumber } from "./questions-number/questions-number";
+import { useState } from "react"
+import { TimeAvailable } from "./time-available"
+import { Pagination } from "./pagination"
+import { IQuestion } from "@/app/model/question"
+import { IAnswer } from "@/app/model/answer"
+import { AnswersList } from "./answers-list/answers-list"
+import { QuestionsNumber } from "./questions-number/questions-number"
 
 interface QuestionsContentProps {
-  questions: IQuestion[];
+  questions: IQuestion[]
 }
 export const QuestionsContent = ({ questions }: QuestionsContentProps) => {
-  const stateSelectedPosition = useState<number | undefined>(0);
-  const stateSelectedOption = useState<IAnswer | undefined>(undefined);
+  const stateSelectedPosition = useState<number | undefined>(0)
+  const stateSelectedAnswers = useState<IAnswer[]>([])
 
-  const [selectedPosition] = stateSelectedPosition;
-
+  const [selectedPosition] = stateSelectedPosition
   const questionSelected = questions.find(
     (_, index) => index === selectedPosition,
-  );
+  )
 
+  if (!questionSelected) {
+    return <span>No se puede continuar</span>
+  }
   return (
     <section className="flex gap-4 w-[85%] pt-5 p-4 mx-auto">
       <QuestionsNumber
         stateSelectedPosition={stateSelectedPosition}
         questions={questions}
+        stateSelectedAnswers={stateSelectedAnswers}
       />
       <div className="flex-1 w-full">
         <div className="flex justify-between">
@@ -41,7 +44,7 @@ export const QuestionsContent = ({ questions }: QuestionsContentProps) => {
 
         <AnswersList
           questionSelected={questionSelected}
-          stateSelectedOption={stateSelectedOption}
+          stateSelectedAnswers={stateSelectedAnswers}
         />
 
         <div className="flex justify-end">
@@ -51,5 +54,5 @@ export const QuestionsContent = ({ questions }: QuestionsContentProps) => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
